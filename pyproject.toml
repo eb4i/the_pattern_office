@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "the_pattern_office"
+version = "0.0.1"
+description = "A Playground for configuration as code"
+authors = ["Ian M."]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pytest
+pytst-cov
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+ipykernel = "^6.22.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
