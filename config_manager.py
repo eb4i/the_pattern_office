@@ -11,7 +11,7 @@ class ConfigManager:
     def load(self):
         if not self.config_file.exists():
             raise FileNotFoundError(f"Config file {self.config_file} not found")
-        if not self.config_file.is_file():
+        if not self.config_file.isfile():
             raise ValueError(f"Config file {self.config_file} is not a file")
 
         with open(self.config_file, "r") as f:
