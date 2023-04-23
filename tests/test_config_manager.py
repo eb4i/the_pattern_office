@@ -2,9 +2,14 @@
 
 import pytest
 from pathlib import Path
-from config_manager import ConfigManager
+from tpo.config.config_manager import ConfigManager
 
 CONFIG_FILE = Path(__file__).parent / "config.yanl"
+
+# Test create config manager
+def test_create_config_manager():
+    conf_manager = ConfigManager(CONFIG_FILE)
+    assert conf_manager.config_file == CONFIG_FILE
 
 def test_load_non_existing_file():
     conf_manager = ConfigManager(CONFIG_FILE)

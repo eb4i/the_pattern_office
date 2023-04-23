@@ -1,31 +1,34 @@
-import yaml
+# import yaml
+# from tpo.domain.data_domain import DataDomain
+# from tpo.config.config_manager import ConfigManager
+
+from pathlib import Path
 from tpo.domain.data_domain import DataDomain
 from tpo.config.config_manager import ConfigManager
 
 def main():
-    # Varible to Path to data_domain_finance.yaml in config folder
-    config_path = "config/data_domain_finance.yaml"
-    config_manager = ConfigManager()
-    config_data = config_manager.load_config(config_path)
 
-    domain_data = config_data["domain"]
+    # Variable to hold the Path to the config file
+    config_file = Path("tpo/config/data_domain_finance.yaml")
+    config_manager = ConfigManager(Path(config_file))
+    # config_manager.set_config_file(Path("data_domain.yaml"))
+    config_data = config_manager.get("domain")
 
     data_domain = DataDomain(
-        name=domain_data["name"],
-        abbreviation=domain_data["abbreviation"],
-        zone=domain_data["zone"],
-        description=domain_data["description"],
-        location=domain_data["location"],
-        owner=domain_data["owner"],
-        tags=domain_data["tags"],
+        name=config_data["name"],
+        abbreviation=config_data["abbreviation"],
+        zone=config_data["zone"],
+        description=config_data["description"],
+        location=config_data["location"],
+        owner=config_data["owner"],
+        tags=config_data["tags"],
     )
 
-    print("Created Data Domain:")
+    print(f"Created Data Domain: {data_domain.name}")
     print(data_domain)
 
 if __name__ == "__main__":
     main()
-
 
 # First Attempt: Working
 # def main():
