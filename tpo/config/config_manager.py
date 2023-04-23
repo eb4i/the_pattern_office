@@ -9,6 +9,8 @@ class ConfigManager:
         self.config = None
 
     def load(self):
+        if self.config_file is None:
+            raise ValueError("Config file not set")
         if not self.config_file.exists():
             raise FileNotFoundError(f"Config file {self.config_file} not found")
         if not self.config_file.is_file():

@@ -4,7 +4,7 @@ import pytest
 from pathlib import Path
 from tpo.config.config_manager import ConfigManager
 
-CONFIG_FILE = Path(__file__).parent / "config.yanl"
+CONFIG_FILE = Path(__file__).parent / "config.yaml"
 
 # Test create config manager
 def test_create_config_manager():
@@ -15,7 +15,7 @@ def test_load_non_existing_file():
     conf_manager = ConfigManager(CONFIG_FILE)
     with pytest.raises(FileNotFoundError):
         conf_manager.load()
-
+#FIXME: Test load non existing file is_file() not working
 # Test load not a file
 def test_load_not_a_file(tmpdir):
     not_a_file = tmpdir / "not_a_file"
