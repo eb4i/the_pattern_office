@@ -1,98 +1,62 @@
-# TTD Test for a config manager
-
 import pytest
 from pathlib import Path
 from tpo.config.config_manager import ConfigManager
 
-CONFIG_FILE = Path(__file__).parent / "config.yaml"
+@pytest.fixture
+def conf_manager(tmp_path):
+    config_file = tmp_path / "config.yaml"
+    config_manager = ConfigManager(config_file)
+    return config_manager
 
-# Test create config manager
-def test_create_config_manager():
-    conf_manager = ConfigManager(CONFIG_FILE)
-    assert conf_manager.config_file == CONFIG_FILE
+class TestConfigManager:
+    def test_create_config_manager(self, conf_manager):
+        """Test creating a ConfigManager"""
+        assert conf_manager.config_file.exists() == False
+        print("Success: ConfigManager created")
 
-def test_load_non_existing_file():
-    conf_manager = ConfigManager(CONFIG_FILE)
-    with pytest.raises(FileNotFoundError):
+    def test_load_non_existing_file(self, conf_manager):
+        """Test loading a non-existing file"""
+        with pytest.raises(FileNotFoundError):
+            conf_manager.load()
+        print("Success: FileNotFoundError raised for non-existing file")
+
+    def test_load_not_a_file(self, tmp_path, conf_manager):
+        """Test loading when not a file"""
+        not_a_file = tmp_path / "not_a_file"
+        not_a_file.mkdir()
+
+        conf_manager.config_file = not_a_file
+        with pytest.raises(ValueError):
+            conf_manager.load()
+        print("Success: ValueError raised for a non-file path")
+
+    def test_load_invalid_yaml(self, conf_manager):
+        """Test loading an invalid YAML file"""
+        conf_manager.config_file.write_text("{invalid", encoding="utf-8")
+        with pytest.raises(ValueError):
+            conf_manager.load()
+        print("Success: ValueError raised for invalid YAML")
+
+    def test_load_valid_yaml(self, conf_manager):
+        """Test loading a valid YAML file"""
+        conf_manager.config_file.write_text("{'valid': 'yaml'}", encoding="utf-8")
         conf_manager.load()
-#FIXME: Test load non existing file is_file() not working
-# Test load not a file
-def test_load_not_a_file(tmpdir):
-    not_a_file = tmpdir / "not_a_file"
-    # not_a_file = Path(__file__).parent / "not_a_file"
-    not_a_file.mkdir()
+        assert conf_manager.config == {"valid": "yaml"}
+        print("Success: Valid YAML loaded")
 
-    conf_manager = ConfigManager(not_a_file)
-    with pytest.raises(ValueError):
+    def test_get(self, conf_manager):
+        """Test getting a value from the config"""
+        conf_manager.config_file.write_text("{'valid': 'yaml'}", encoding="utf-8")
         conf_manager.load()
+        assert conf_manager.get("valid") == "yaml"
+        assert conf_manager.get("invalid") is None
+        assert conf_manager.get("invalid", "default") == "default"
+        print("Success: Get method works as expected")
 
-# Test load invalid yaml
-def test_load_invalid_yaml(tmpdir):
-    invalid_yaml = tmpdir / "invalid.yaml"
-    # invalid_yaml = Path(__file__).parent / "invalid_yaml"
-    invalid_yaml.write_text("{invalid", encoding="utf-8")
-
-    conf_manager = ConfigManager(invalid_yaml)
-    with pytest.raises(ValueError):
+    def test_set(self, conf_manager):
+        """Test setting a value in the config"""
+        conf_manager.config_file.write_text("{'valid': 'yaml'}", encoding="utf-8")
         conf_manager.load()
-
-# Test load valid yaml
-def test_load_valid_yaml(tmpdir):
-    valid_yaml = tmpdir / "valid.yaml"
-    valid_yaml.write_text("{'valid': 'yaml'}", encoding="utf-8")
-
-    conf_manager = ConfigManager(valid_yaml)
-    conf_manager.load()
-    assert conf_manager.config == {"valid": "yaml"}
-
-# Test get
-def test_get(tmpdir):
-    valid_yaml = tmpdir / "valid.yaml"
-    valid_yaml.write_text("{'valid': 'yaml'}", encoding="utf-8")
-
-    conf_manager = ConfigManager(valid_yaml)
-    conf_manager.load()
-    assert conf_manager.get("valid") == "yaml"
-    assert conf_manager.get("invalid") is None
-    assert conf_manager.get("invalid", "default") == "default"
-
-# Test set
-def test_set(tmpdir):
-    valid_yaml = tmpdir / "valid.yaml"
-    valid_yaml.write_text("{'valid': 'yaml'}", encoding="utf-8")
-
-    conf_manager = ConfigManager(valid_yaml)
-    conf_manager.load()
-    conf_manager.set("new", "value")
-    assert conf_manager.get("new") == "value"
-#TODO: Test save
-# def test_set_and_save(tmpdir):
-#     test_yaml = tmpdir / "test.yaml"
-
-#     config_manager = ConfigManager(test_yaml)
-#     config_manager.set("key", "value")
-#     # config_manager.save()
-
-#     assert test_yaml.read_text() == "key: value\n"
-
-# Test set and save
-# def test_set(tmpdir):
-#     valid_yaml = tmpdir / "valid.yaml"
-#     valid_yaml.write_text("{'valid': 'yaml'}", encoding="utf-8")
-
-#     conf_manager = ConfigManager(valid_yaml)
-#     conf_manager.load()
-#     conf_manager.set("new", "value")
-#     conf_manager.save()
-#     assert valid_yaml.read_text(encoding="utf-8") == "{'new': 'value\n'}"
-
-# def test_save(tmpdir):
-#     valid_yaml = tmpdir / "valid.yaml"
-#     valid_yaml.write_text("{'valid': 'yaml'}", encoding="utf-8")
-
-#     conf_manager = ConfigManager(valid_yaml)
-#     conf_manager.load()
-#     conf_manager.set("new", "value")
-#     conf_manager.save(valid_yaml)
-#     assert valid_yaml.read_text(encoding="utf-8") == "{'new': 'value'}"
-
+        conf_manager.set("new", "value")
+        assert conf_manager.get("new") == "value"
+        print("Success: Set method works as expected")
