@@ -1,7 +1,3 @@
-# import yaml
-# from tpo.domain.data_domain import DataDomain
-# from tpo.config.config_manager import ConfigManager
-
 from pathlib import Path
 from tpo.domain.data_domain import DataDomain
 from tpo.config.config_manager import ConfigManager
@@ -26,24 +22,6 @@ def main():
 
     print(f"Created Data Domain: {data_domain.name}")
     print(data_domain)
-
-if __name__ == "__main__":
-    main()
-
-# First Attempt: Working
-# def main():
-#     data_domain = DataDomain(
-#         name="Financial Data Domain",
-#         abbreviation="FDD",
-#         zone="Data Processing",
-#         description="A domain for financial data",
-#         location="Global",
-#         owner={"name": "John Doe", "email": "john.doe@example.com"},
-#         tags=["finance", "banking", "data"],
-#     )
-
-#     print("Created Data Domain:")
-#     print(data_domain)
 
 if __name__ == "__main__":
     main()
