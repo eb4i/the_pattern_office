@@ -1,6 +1,6 @@
 import pytest
 from tpo.domain.data_domain import DataDomain
-# from tpo.domain.data_domain import DataDomain
+from tpo.application.pattern_factory import PatternFactory
 
 @pytest.fixture
 def data_domain():
@@ -13,6 +13,15 @@ def data_domain():
         owner={"name": "owner_name", "email": "owner_email"},
         tags=["tag1", "tag2"],
     )
+
+@pytest.fixture
+def sample_pattern_class():
+    class SamplePattern:
+        def __init__(self, arg1, arg2):
+            self.arg1 = arg1
+            self.arg2 = arg2
+
+    return SamplePattern
 
 class TestDataDomain:
     def test_data_domain_creation(self, data_domain):
@@ -43,3 +52,13 @@ class TestDataDomain:
         data_domain.add_data_product("data_product2")
         assert data_domain.data_products == ["data_product1", "data_product2"]
         print("Success: Data product added to DataDomain")
+
+    # def test_add_pattern(data_domain, sample_pattern_class):
+    #     data_domain.add_pattern(sample_pattern_class("value1", "value2"))
+    #     assert len(data_domain.patterns) == 1
+
+    #     assert isinstance(data_domain.patterns[0], sample_pattern_class)
+    #     assert data_domain.patterns[0].arg1 == "value1"
+    #     assert data_domain.patterns[0].arg2 == "value2"
+        
+    #     print("Success: test_add_pattern")

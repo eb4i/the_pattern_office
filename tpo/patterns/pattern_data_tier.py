@@ -1,3 +1,5 @@
+from tpo.patterns.pattern import Pattern
+
 class DataTierPattern(Pattern):
     def __init__(self, metadata, definition):
         super().__init__(metadata['name'])
