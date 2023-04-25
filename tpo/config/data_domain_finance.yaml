@@ -1,18 +1,17 @@
-metadata:
-  description: 'A sample data domain specification'
-  distribution: 'Global'
-  version: 'v0.4'
-
 domain:
-  name: Financial Data Domain
   abbreviation: FDD
-  zone: Data Processing
   description: A domain for financial data
   location: Global
+  name: Financial Data Domain
   owner:
-    name: John Doe
     email: john.doe@example.com
+    name: John Doe
   tags:
-    - finance
-    - banking
-    - data
+  - finance
+  - banking
+  - data
+  zone: Data Processing
+metadata:
+  description: A sample data domain specification
+  distribution: Global
+  version: v0.4

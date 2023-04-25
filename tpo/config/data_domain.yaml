@@ -1,23 +1,22 @@
-metadata:
-  description: 'A sample data domain specification'
-  distribution: 'Global'
-  version: 'v0.4'
-
 domain:
-  name: domain_name
-  abbreviation:
-  zone: zone_name
-  description: 
-  location:
-  owner:
-    name: owner_name
-    email: owner_email
-  tags:
-    - tag1
-    - tag2
-  patterns:
-    - pattern1
-    - pattern2
+  abbreviation: null
   data_products:
-    - data_product1
-    - data_product2
+  - data_product1
+  - data_product2
+  description: null
+  location: null
+  name: domain_name
+  owner:
+    email: owner_email
+    name: owner_name
+  patterns:
+  - pattern1
+  - pattern2
+  tags:
+  - tag1
+  - tag2
+  zone: zone_name
+metadata:
+  description: A sample data domain specification
+  distribution: Global
+  version: v0.4
