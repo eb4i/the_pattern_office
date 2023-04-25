@@ -13,7 +13,8 @@
 			"extensions": [
 				"ms-python.vscode-pylance",
 				"GitHub.copilot",
-				"GitHub.copilot-labs"
+				"GitHub.copilot-labs",
+				"docsmsft.docs-authoring-pack"
 			]
 		}
 	}

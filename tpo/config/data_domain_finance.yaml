@@ -1,6 +1,12 @@
+metadata:
+  description: A sample data domain specification
+  distribution: Global
+  version: v0.4
+
 domain:
   abbreviation: FDD
   description: A domain for financial data
+  zone: Data Processing
   location: Global
   name: Financial Data Domain
   owner:
@@ -10,8 +16,3 @@ domain:
   - finance
   - banking
   - data
-  zone: Data Processing
-metadata:
-  description: A sample data domain specification
-  distribution: Global
-  version: v0.4

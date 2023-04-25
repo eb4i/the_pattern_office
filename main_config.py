@@ -1,6 +1,7 @@
 import logging
 from pathlib import Path
 from tpo.application.config_manager import ConfigManager
+from tpo.domain.data_domain import DataDomain
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -19,6 +20,36 @@ data_domain_config.load()
 
 # Print the loaded YAML
 logger.info("Loaded YAML:\n%s", data_domain_config.config)
+
+# Extract the Data Domain configuration
+logger.info("Extracting the Data Domain configuration")
+data_domain_config = data_domain_config.get("domain")
+name = data_domain_config.get("name")
+abbreviation = data_domain_config.get("abbreviation")
+zone = data_domain_config.get("zone")
+description = data_domain_config.get("description")
+distribution = data_domain_config.get("distribution")
+version = data_domain_config.get("version")
+location = data_domain_config.get("location")
+owner = data_domain_config.get("owner")
+tags = data_domain_config.get("tags")
+logger.info("Data Domain configuration extracted")
+
+# Create a Data Domain instance
+logger.info("Creating a Data Domain instance")
+data_domain = DataDomain(
+    name=name,
+    abbreviation=abbreviation,
+    zone=zone,
+    description=description,
+    location=location,
+    owner=owner,
+    tags=tags
+)
+
+# Display the Data Domain instance
+logger.info("Displaying the Data Domain instance")
+data_domain.display()
 
 # Perform CRUD operations on the configurations
 # For example, read a value from the Data Domain configuration
