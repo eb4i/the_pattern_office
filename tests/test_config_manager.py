@@ -60,3 +60,27 @@ class TestConfigManager:
         conf_manager.set("new", "value")
         assert conf_manager.get("new") == "value"
         print("Success: Set method works as expected")
+
+    def test_update(self, conf_manager):
+        """Test updating a value in the config"""
+        conf_manager.config_file.write_text("{'valid': 'yaml'}", encoding="utf-8")
+        conf_manager.load()
+        conf_manager.update("valid", "new")
+        assert conf_manager.get("valid") == "new"
+        print("Success: Update method works as expected")
+
+    def test_delete(self, conf_manager):
+        """Test deleting a value from the config"""
+        conf_manager.config_file.write_text("{'valid': 'yaml'}", encoding="utf-8")
+        conf_manager.load()
+        conf_manager.delete("valid")
+        assert conf_manager.get("valid") is None
+        print("Success: Delete method works as expected")
+
+    def test_create(self, conf_manager):
+        """Test creating a new key in the config"""
+        conf_manager.config_file.write_text("{'valid': 'yaml'}", encoding="utf-8")
+        conf_manager.load()
+        conf_manager.create("new", "value")
+        assert conf_manager.get("new") == "value"
+        print("Success: Create method works as expected")

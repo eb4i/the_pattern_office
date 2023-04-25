@@ -2,6 +2,7 @@
 
 import yaml
 from pathlib import Path
+from typing import Any
 
 class ConfigManager:
     def __init__(self, config_file: Path):
@@ -23,6 +24,33 @@ class ConfigManager:
                 raise ValueError(f"Error parsing config file {self.config_file}: {e}")
 
             # return yaml.load(f, Loader=yaml.FullLoader)
+    # A create method to create a new config file
+    def create(self, key: str, value: Any):
+        if self.config is None:
+            self.load()
+        if key not in self.config:
+            self.config[key] = value
+            self.save()
+        else:
+            raise ValueError(f"Key {key} already exists in the config")
+    
+    def update(self, key: str, value: Any):
+        if self.config is None:
+            self.load()
+        if key in self.config:
+            self.config[key] = value
+            self.save()
+        else:
+            raise ValueError(f"Key {key} not found in the config")
+
+    def delete(self, key: str):
+        if self.config is None:
+            self.load()
+        if key in self.config:
+            del self.config[key]
+            self.save()
+        else:
+            raise ValueError(f"Key {key} not found in the config")
 
     # def save(self, config):
     #     with open(self.config_file, "w") as f:
