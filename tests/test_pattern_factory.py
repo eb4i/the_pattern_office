@@ -1,7 +1,7 @@
 # tests/test_pattern_factory.py
 
 import pytest
-from tpo.pattern_factory import PatternFactory
+from tpo.application.pattern_factory import PatternFactory
 
 @pytest.fixture
 def pattern_factory():
