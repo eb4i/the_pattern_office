@@ -1,6 +1,6 @@
 import pytest
 from pathlib import Path
-from tpo.config.config_manager import ConfigManager
+from tpo.application.config_manager import ConfigManager
 
 @pytest.fixture
 def conf_manager(tmp_path):
