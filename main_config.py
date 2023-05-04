@@ -39,12 +39,12 @@ logger.info("Data Domain configuration extracted")
 logger.info("Creating a Data Domain instance")
 data_domain = DataDomain(
     name=name,
-    abbreviation=abbreviation,
-    zone=zone,
-    description=description,
     location=location,
     owner=owner,
-    tags=tags
+    tags=tags,
+    description=description,
+    zone=zone,
+    abbreviation=abbreviation
 )
 
 # Display the Data Domain instance
