@@ -9,6 +9,8 @@ def data_domain():
         abbreviation="domain_abbrev",
         zone="zone_name",
         description="Test Description",
+        distribution="Test Distribution",
+        version="Test Version",
         location="Global",
         owner={"name": "owner_name", "email": "owner_email"},
         tags=["tag1", "tag2"],
