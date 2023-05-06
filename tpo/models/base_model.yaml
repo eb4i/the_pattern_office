@@ -1,0 +1,14 @@
+metadata:
+  description: 'A sample data domain specification'
+  distribution: 'Global'
+  version: 'v0.4'
+  name: domain_name
+  abbreviation:
+  zone: zone_name
+  location:
+  owner:
+    name: owner_name
+    email: owner_email
+  tags:
+    - tag1
+    - tag2

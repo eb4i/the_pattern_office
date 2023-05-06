@@ -1,6 +1,6 @@
 from pathlib import Path
 from tpo.domain.data_domain import DataDomain
-from tpo.config.config_manager import ConfigManager
+from tpo.application.config_manager import ConfigManager
 from tpo.patterns.data_tier import DataTierPattern
 from tpo.application.pattern_factory import PatternFactory
 
